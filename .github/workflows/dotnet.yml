@@ -24,10 +24,3 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Publish
-      run: dotnet publish -c Release --sc -o publish
-    - name: Upload Build Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Publish Artifact
-        path: publish/*
