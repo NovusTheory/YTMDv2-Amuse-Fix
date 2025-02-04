@@ -6,6 +6,7 @@ name: .NET Bleeding Edge
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,6 +21,8 @@ jobs:
         dotnet-version: 8.0.x
     - name: Publish
       run: dotnet publish -c Release --sc -o publish
+    - name: Compress Publish
+      run: Compress-Archive -Path ".\publish\*", ".\LICENSE" -DestinationPath publish-windows.zip
     - name: Create Release
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -27,6 +30,4 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: true
         title: "Development Build"
-        files: |
-          LICENSE
-          publish/*
+        files: publish-windows.zip
