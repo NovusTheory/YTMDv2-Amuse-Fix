@@ -1,9 +1,9 @@
 # YTMDv2-Amuse-Fix
 Small application which proxies 6klabs Amuse service and injects code to make it work with YTMD v2
 
-# IMPORTANT NOTES
-- This program does not automatically update! You are expected to come back to this repository perodically to check for updates or changes
-- Amuse will most likely not automatically update with setting changes from their dashboard. You need to click "Refresh cache of current page" in the browser source properties to correct this
+> [!IMPORTANT]
+> - This program does not automatically update! You are expected to come back to this repository perodically to check for updates or changes
+> - Amuse will most likely not automatically update with setting changes from their dashboard. You need to click "Refresh cache of current page" in the browser source properties to correct this
 
 # Usage
 To get started using this program, first grab the latest release at https://github.com/NovusTheory/YTMDv2-Amuse-Fix/releases/tag/latest.
