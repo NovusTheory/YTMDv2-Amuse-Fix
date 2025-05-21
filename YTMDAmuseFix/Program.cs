@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using NotificationIcon.NET;
@@ -12,10 +13,19 @@ namespace YTMDAmuseFix
         private static string SIXKLABS_URL = "https://6klabs.com";
         private static string SIXKLABS_CANVAS_URL = "https://canvaz.6klabs.com";
 
-        private static Regex WIDGET_URL_REGEX = new("/widget/youtube/[A-Za-z0-9_]+/?$", RegexOptions.Compiled | RegexOptions.Singleline);
+        private static Regex WIDGET_URL_REGEX = new("/widget/youtube/[A-Za-z0-9_]+/?[A-Za-z0-9_]+?/?$", RegexOptions.Compiled | RegexOptions.Singleline);
+
+#if DEBUG
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool AllocConsole();
+#endif
 
         static async Task Main(string[] args)
         {
+#if DEBUG
+            AllocConsole();
+#endif
+
             var processClosed = false;
 
             var trayThread = new Thread(CreateNotifyIcon);
@@ -42,7 +52,8 @@ namespace YTMDAmuseFix
                     var pathAndQuery = request.Url!.AbsolutePath.Remove(0, 13);
                     proxyRequest = new HttpRequestMessage(HttpMethod.Parse(request.HttpMethod), $"{SIXKLABS_CANVAS_URL}{pathAndQuery}");
                     proxyRequest.Content = new StreamContent(request.InputStream);
-                } else
+                }
+                else
                 {
                     proxyRequest = new HttpRequestMessage(HttpMethod.Parse(request.HttpMethod), $"{SIXKLABS_URL}{request.Url!.PathAndQuery}");
                 }
@@ -201,7 +212,9 @@ namespace YTMDAmuseFix
                     doc.Save(response.OutputStream);
 
                     Console.WriteLine("Injected Amuse fix into widget request");
-                } else {
+                }
+                else
+                {
 
                     response.ContentType = proxyResponse.Content.Headers.ContentType?.MediaType;
                     response.ContentLength64 = proxyResponse.Content.Headers.ContentLength ?? 0;
