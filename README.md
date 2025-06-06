@@ -26,6 +26,11 @@ Then make sure the URL is set to your modified url
 
 ![image](https://github.com/user-attachments/assets/3a279483-9da6-4ab7-9382-8d718522c782)
 
+Make sure that browser communication is enabled in YTMDesktop otherwise OBS cannot communicate with the app
+
+![image](https://github.com/user-attachments/assets/7450892b-4e23-4f56-836d-ac7c5968a8a4)
+
+
 Follow the normal procedures of authorizing a companion in YTMDesktop refreshing the browser source page cache in OBS if needed to reinitiate the authorization
 
 Amuse should now be in your OBS and working properly with YTMDesktop v2 as long as this application is running in the background :)
